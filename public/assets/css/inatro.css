@@ -1,0 +1,556 @@
+/* ==========================================================================
+   INATRO SISTEMA WEB - DESIGN SYSTEM & IDENTIDADE VISUAL
+   Cores extraídas e ajustadas a partir do logotipo oficial do INATRO
+   ========================================================================== */
+
+:root {
+    /* Cores Institucionais do Logo INATRO */
+    --primary-color: #388E3C;
+    /* Verde Médio / Principal */
+    --primary-dark: #1B5E20;
+    /* Verde Escuro Institucional */
+    --primary-light: #4CAF50;
+    /* Verde Claro (Arco do Logo) */
+    --primary-subtle: #E8F5E9;
+    /* Fundo suave esverdeado */
+
+    /* Cores Estruturais e Texto */
+    --secondary-color: #2D3748;
+    /* Cinzento escuro institucional */
+    --text-main: #1F2937;
+    /* Texto principal */
+    --text-muted: #6B7280;
+    /* Texto secundário */
+    --background-color: #F8FAFC;
+    /* Fundo da página */
+    --surface-color: #FFFFFF;
+    /* Fundo de cartões */
+    --border-color: #E2E8F0;
+    /* Bordas */
+
+    /* Cores de Estado e Alerta */
+    --success-color: #16A34A;
+    /* Verde Operação Concluída / Paga */
+    --success-subtle: #DCFCE7;
+    --warning-color: #D97706;
+    /* Amarelo/Laranja Alerta / Pendente */
+    --warning-subtle: #FEF3C7;
+    --danger-color: #DC2626;
+    /* Vermelho Erro / Multa Vencida */
+    --danger-subtle: #FEE2E2;
+    --info-color: #0284C7;
+    /* Azul Em Processamento */
+    --info-subtle: #E0F2FE;
+
+    /* Sombra e Efeitos */
+    --box-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --box-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --box-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --transition: all 0.25s ease-in-out;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+/* ==========================================================================
+   NAVEGAÇÃO / CABEÇALHO
+   ========================================================================== */
+
+.inatro-header {
+    background-color: var(--surface-color);
+    border-bottom: 3px solid var(--primary-color);
+    box-shadow: var(--box-shadow-sm);
+}
+
+.navbar-brand-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-link-inatro {
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 0.88rem;
+    padding: 0.35rem 0.65rem !important;
+    transition: var(--transition);
+}
+
+.nav-link-inatro:hover,
+.nav-link-inatro.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.btn-inatro-primary {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    padding: 0.4rem 1.1rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+.btn-inatro-primary:hover {
+    background-color: var(--primary-dark);
+    color: #FFFFFF;
+    box-shadow: 0 4px 10px rgba(56, 142, 60, 0.3);
+}
+
+.btn-inatro-outline {
+    border: 1.5px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.38rem 1rem;
+    border-radius: var(--radius-md);
+    background: transparent;
+    transition: var(--transition);
+}
+
+.btn-inatro-outline:hover {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+}
+
+.btn-inatro-secondary {
+    background-color: var(--secondary-color);
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    padding: 0.4rem 1.1rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+.btn-inatro-secondary:hover {
+    background-color: #1A202C;
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   HERO / BANNER PRINCIPAL
+   ========================================================================== */
+
+.hero-banner {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(30, 41, 59, 0.88) 100%), url('../images/banner.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    position: relative;
+    padding: 5rem 0;
+    overflow: hidden;
+}
+
+.hero-banner::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(76, 175, 80, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #FFFFFF;
+}
+
+.hero-accent {
+    color: var(--primary-light);
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: #E2E8F0;
+    max-width: 680px;
+}
+
+/* Auth Card & Header Image Styling */
+.auth-card {
+    background-color: var(--surface-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--box-shadow-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.auth-header-img-wrapper {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--secondary-color);
+}
+
+.auth-header-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.auth-user-icon-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    box-shadow: var(--box-shadow-md);
+}
+
+/* ==========================================================================
+   CARTÕES & COMPONENTES VISUAIS
+   ========================================================================== */
+
+.card-inatro {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--box-shadow-sm);
+    transition: var(--transition);
+    /* height: 100% removed — causes stacked cards to stretch full-page height.
+       Use Bootstrap h-100 explicitly when equal heights are needed (e.g. dashboard grid). */
+}
+
+.card-inatro:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--box-shadow-md);
+    border-color: var(--primary-light);
+}
+
+/* Disable lift-on-hover for content cards inside the admin main area
+   (filter bars, data tables, page headers) — these should never shift position. */
+.admin-main-content .card-inatro:hover {
+    transform: none;
+    box-shadow: var(--box-shadow-sm);
+    border-color: var(--border-color);
+}
+
+.service-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background-color: var(--primary-subtle);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+}
+
+.step-number {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   BADGES DE ESTADO
+   ========================================================================== */
+
+.badge-status {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.badge-pendente {
+    background-color: var(--warning-subtle);
+    color: var(--warning-color);
+    border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.badge-paga {
+    background-color: var(--success-subtle);
+    color: var(--success-color);
+    border: 1px solid rgba(22, 163, 74, 0.3);
+}
+
+.badge-em_processamento {
+    background-color: var(--info-subtle);
+    color: var(--info-color);
+    border: 1px solid rgba(2, 132, 199, 0.3);
+}
+
+.badge-vencida {
+    background-color: var(--danger-subtle);
+    color: var(--danger-color);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+/* ==========================================================================
+   PAINEL / METRICAS (DASHBOARD)
+   ========================================================================== */
+
+.stat-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--box-shadow-sm);
+}
+
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+.stat-card .stat-label {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.stat-card-border-primary {
+    border-left: 4px solid var(--primary-color);
+}
+
+.stat-card-border-warning {
+    border-left: 4px solid var(--warning-color);
+}
+
+.stat-card-border-success {
+    border-left: 4px solid var(--success-color);
+}
+
+.stat-card-border-info {
+    border-left: 4px solid var(--info-color);
+}
+
+.stat-card-border-danger {
+    border-left: 4px solid var(--danger-color);
+}
+
+/* ==========================================================================
+   COMPROVATIVO VISUAL
+   ========================================================================== */
+
+.receipt-box {
+    background-color: #FFFFFF;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--box-shadow-md);
+    max-width: 750px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.receipt-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.04;
+    width: 60%;
+    pointer-events: none;
+}
+
+.receipt-header {
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.receipt-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+.receipt-table td {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Print styles for receipt */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .receipt-box,
+    .receipt-box * {
+        visibility: visible;
+    }
+
+    .receipt-box {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   ADMIN FLEXBOX LAYOUT ARCHITECTURE
+   ========================================================================== */
+
+.admin-app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+.admin-header-nav {
+    height: 62px;
+    background-color: var(--secondary-color);
+    border-bottom: 3px solid var(--primary-color);
+    z-index: 1030;
+}
+
+.admin-body-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: calc(100vh - 62px);
+}
+
+.admin-sidebar {
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    background-color: var(--secondary-color);
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: all 0.25s ease-in-out;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar .nav-link {
+    color: #CBD5E1;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 4px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: var(--transition);
+}
+
+.admin-sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+}
+
+.admin-sidebar .nav-link.active {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(56, 142, 60, 0.3);
+}
+
+.admin-main-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    /* Prevents overflow from pushing flex items to new line */
+    padding: 2rem 2.5rem;
+    background-color: var(--background-color);
+    /* Ensure children stack naturally (block flow), not stretched by flex */
+    display: block;
+    overflow-y: auto;
+}
+
+@media (max-width: 991.98px) {
+    .admin-body-wrapper {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .admin-sidebar.collapse:not(.show) {
+        display: none;
+    }
+
+    .admin-main-content {
+        padding: 1.25rem 1rem;
+    }
+}
+
+
+/* ==========================================================================
+   RODAPÉ INSTITUCIONAL
+   ========================================================================== */
+
+.inatro-footer {
+    background-color: var(--secondary-color);
+    color: #94A3B8;
+    padding: 3rem 0 1.5rem 0;
+    margin-top: auto;
+    font-size: 0.92rem;
+}
+
+.inatro-footer h5 {
+    color: #FFFFFF;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+
+.inatro-footer a {
+    color: #CBD5E1;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.inatro-footer a:hover {
+    color: var(--primary-light);
+}
+
+.prototype-notice-bar {
+    background-color: #1A202C;
+    border-top: 1px solid #334155;
+    padding: 12px 0;
+    font-size: 0.82rem;
+    color: #94A3B8;
+}
