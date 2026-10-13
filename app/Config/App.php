@@ -40,7 +40,7 @@ class App extends BaseConfig
      * something else. If you have configured your web server to remove this file
      * from your site URIs, set this variable to an empty string.
      */
-    public string $indexPage = 'index.php';
+    public string $indexPage = '';
 
     /**
      * --------------------------------------------------------------------------
@@ -199,4 +199,20 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Se baseURL mantiver o valor padrão ou não tiver sido configurado, detecta automaticamente o host atual
+        if (($this->baseURL === 'http://localhost:8080/' || empty($this->baseURL)) && isset($_SERVER['HTTP_HOST'])) {
+            $isHttps = (
+                (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' && $_SERVER['HTTPS']) ||
+                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+                (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)
+            );
+            $scheme = $isHttps ? 'https://' : 'http://';
+            $this->baseURL = $scheme . $_SERVER['HTTP_HOST'] . '/';
+        }
+    }
 }
