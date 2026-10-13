@@ -1,19 +1,25 @@
 #!/bin/bash
 set -e
 
-# Configurar porta dinâmica caso definida pela plataforma (ex: Railway passa $PORT)
-PORT="${PORT:-80}"
-sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf 2>/dev/null || true
-sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT}>/g" /etc/apache2/sites-available/000-default.conf 2>/dev/null || true
+# 1. Garantir que APENAS o módulo mpm_prefork está carregado (elimina AH00534: More than one MPM loaded)
+rm -f /etc/apache2/mods-enabled/mpm_event.load /etc/apache2/mods-enabled/mpm_event.conf \
+      /etc/apache2/mods-enabled/mpm_worker.load /etc/apache2/mods-enabled/mpm_worker.conf 2>/dev/null || true
+a2enmod mpm_prefork 2>/dev/null || true
+a2enmod rewrite 2>/dev/null || true
 
-# Garantir existência de todos os subdiretórios de writable
+# 2. Configurar porta dinâmica caso definida pela plataforma (ex: Railway passa $PORT)
+PORT="${PORT:-80}"
+sed -i "s/Listen [0-9]*/Listen ${PORT}/g" /etc/apache2/ports.conf 2>/dev/null || true
+sed -i "s/<VirtualHost \*:[0-9]*>/<VirtualHost \*:${PORT}>/g" /etc/apache2/sites-available/000-default.conf 2>/dev/null || true
+
+# 3. Garantir existência de todos os subdiretórios de writable
 mkdir -p /var/www/html/writable/cache
 mkdir -p /var/www/html/writable/logs
 mkdir -p /var/www/html/writable/session
 mkdir -p /var/www/html/writable/uploads
 mkdir -p /var/www/html/writable/database
 
-# Se não existir .env, gerar um ficheiro com configurações adequadas de produção
+# 4. Se não existir .env, gerar um ficheiro com configurações adequadas de produção
 if [ ! -f /var/www/html/.env ]; then
     echo "A gerar configuração de ambiente .env de produção..."
     BASE_URL="${APP_URL}"
@@ -38,7 +44,7 @@ security.redirect = true
 EOF
 fi
 
-# Inicializar e atualizar a base de dados SQLite
+# 5. Inicializar e atualizar a base de dados SQLite
 DB_FILE="/var/www/html/writable/database/inatro_database.db"
 if [ ! -f "$DB_FILE" ]; then
     echo "Base de dados SQLite não encontrada. A criar e a executar migrações + seeders..."
@@ -51,9 +57,9 @@ else
     php spark migrate --all --force
 fi
 
-# Ajustar permissões para que o Apache consiga ler e escrever
+# 6. Ajustar permissões para que o Apache consiga ler e escrever
 chown -R www-data:www-data /var/www/html/writable
 chmod -R 775 /var/www/html/writable
 
-echo "Sistema INATRO configurado com sucesso! A iniciar servidor na porta ${PORT}..."
+echo "Sistema INATRO configurado com sucesso! A iniciar Apache na porta ${PORT}..."
 exec "$@"

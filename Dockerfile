@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         zip \
         pdo_sqlite \
         opcache \
+    && a2dismod mpm_event mpm_worker || true \
+    && a2enmod mpm_prefork \
     && a2enmod rewrite \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -39,13 +41,20 @@ COPY . .
 # Gerar autoload otimizado do Composer
 RUN composer dump-autoload --optimize --no-dev
 
-# Configurar o DocumentRoot do Apache para a pasta public/ do CodeIgniter 4
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-# Habilitar AllowOverride no diretório public para suporte a rotas amigáveis via .htaccess
-RUN printf '<Directory /var/www/html/public>\n    Options -Indexes +FollowSymLinks\n    AllowOverride All\n    Require all granted\n</Directory>\n' >> /etc/apache2/apache2.conf
+# Configurar VirtualHost do Apache para CodeIgniter 4 (DocumentRoot public/)
+RUN printf '<VirtualHost *:80>\n\
+    ServerAdmin webmaster@localhost\n\
+    DocumentRoot /var/www/html/public\n\
+\n\
+    <Directory /var/www/html/public>\n\
+        Options -Indexes +FollowSymLinks\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+\n\
+    ErrorLog ${APACHE_LOG_DIR}/error.log\n\
+    CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
+</VirtualHost>\n' > /etc/apache2/sites-available/000-default.conf
 
 # Criar estrutura de diretórios em writable/
 RUN mkdir -p writable/cache writable/logs writable/session writable/uploads writable/database \
