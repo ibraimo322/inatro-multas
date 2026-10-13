@@ -149,7 +149,7 @@ main {
    ========================================================================== */
 
 .hero-banner {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(30, 41, 59, 0.88) 100%), url('../images/banner.png');
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(30, 41, 59, 0.88) 100%), url('../images/banner.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

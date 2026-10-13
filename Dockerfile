@@ -20,9 +20,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         pdo_sqlite \
         opcache \
     && a2dismod mpm_event mpm_worker || true \
-    && a2enmod mpm_prefork \
-    && a2enmod rewrite \
+    && a2enmod mpm_prefork rewrite deflate expires headers \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Configurar OPcache e limites para máxima performance em produção
+RUN { \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.enable_cli=0'; \
+    echo 'opcache.memory_consumption=128'; \
+    echo 'opcache.interned_strings_buffer=16'; \
+    echo 'opcache.max_accelerated_files=10000'; \
+    echo 'opcache.revalidate_freq=2'; \
+    echo 'opcache.fast_shutdown=1'; \
+    echo 'memory_limit=256M'; \
+    echo 'upload_max_filesize=10M'; \
+    echo 'post_max_size=10M'; \
+} > /usr/local/etc/php/conf.d/custom-performance.ini
 
 WORKDIR /var/www/html
 

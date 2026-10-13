@@ -27,7 +27,7 @@
             padding: 3.5rem 4rem;
         }
         .login-right-col-admin {
-            background: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.6)), url('<?= base_url('assets/images/administrador.png') ?>') center/cover no-repeat;
+            background: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.6)), url('<?= base_url('assets/images/administrador.jpg') ?>') center/cover no-repeat;
             position: relative;
             min-height: 100vh;
         }
